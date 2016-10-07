@@ -49,9 +49,9 @@ public class QnaAddAction implements ActionInterFace {
 			System.out.println("게시판 등록 완료");
 
 	   		forward.setRedirect(true);
-	   		forward.setPath(request.getContextPath() + "/Qna/QnaList.qn");
+	   		forward.setPath(request.getContextPath() + "/Gdetail/goodsDetailAction.go?gCode="+request.getParameter("gCode"));
 
-	   		
+
 		}catch(Exception ex){
    			ex.printStackTrace();
    		}

@@ -14,13 +14,30 @@
 			
 			$('.subject').click(function(){
 				var sessionId = $('#sessionId').val();
-				//console.log(sessionId);
+				console.log(sessionId);
 				var count = $('.subject').index(this);
 				//console.log(count);
 				var listId = $('.listId').eq(count).val();
 				//console.log(idValue);
+				var gId = $('#gId').val();
+				console.log(gId);
 				
-				if(sessionId != listId) {
+				var loginLevel = $('#loginLevel').val();
+				
+				/* if(sessionId == gId) {
+					return true;
+				} else if(sessionId == listId) {
+					return true;
+				} else if(loginLevel == "관리자") {
+					return true;
+				} else {
+					alert('접근권한이 없습니다.');
+					return false;
+				} */
+				//		seller	asd1000				1234
+				if(sessionId == gId || sessionId == listId || loginLevel == "관리자") {
+					return true;
+				} else {
 					alert('접근권한이 없습니다.');
 					return false;
 				}
@@ -42,6 +59,8 @@
 	<!-- 게시판 리스트 -->
 	<form action="${pageContext.request.contextPath}/Qna/QnaListAction.qn" method="post">
 	<input type="hidden" id="sessionId" value="${sessionScope.loginId}">
+	<input type="hidden" id="loginLevel" value="${sessionScope.loginLevel}">
+	<input type="hidden" id="gId" value="${g_id}">
 	<table class="basic">
 	<c:choose>
 		<c:when test="${listcount>0}">
@@ -75,13 +94,13 @@
 						<div align="left">
 							<c:if test='${list.qna_secret eq "y"}'>
 								<span><img src="../img/padlock.png" width="16" height="16" align="middle"></span>
-								<a class="subject" href="${pageContext.request.contextPath}/Qna/QnaDetailAction.qn?num=${list.qna_no}">
+								<a class="subject" href="${pageContext.request.contextPath}/Qna/QnaDetailAction.qn?num=${list.qna_no}&gCode=${gCode}">
 									${list.qna_subject}
 								</a>
 								<input type="hidden" class="listId" value="${list.m_id}">
 							</c:if>
 							<c:if test='${list.qna_secret eq "n"}'>
-								<a href="${pageContext.request.contextPath}/Qna/QnaDetailAction.qn?num=${list.qna_no}">
+								<a href="${pageContext.request.contextPath}/Qna/QnaDetailAction.qn?num=${list.qna_no}&gCode=${gCode}">
 									${list.qna_subject}
 								</a>
 							</c:if>

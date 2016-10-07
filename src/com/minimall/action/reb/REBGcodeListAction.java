@@ -1,4 +1,4 @@
-package com.minimall.action.qna;
+package com.minimall.action.reb;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,20 +6,17 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.minimall.action.goods.GoodsDetailAction;
-import com.minimall.dao.GoodsDao;
-import com.minimall.dao.QnaDao;
-import com.minimall.dto.GoodsDto;
+import com.minimall.dao.REBDao;
 import com.minimall.forward.ActionForward;
 import com.minimall.inter.ActionInterFace;
 
-public class QnaGcodeListAction implements ActionInterFace {
+public class REBGcodeListAction implements ActionInterFace {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("리스트 execute호출com.minimall.action.GcodeQnaListAction.java"); 
-		QnaDao qnadao=new QnaDao();
-		List qnalist=new ArrayList();
+		REBDao rebDao=new REBDao();
+		List reblist=new ArrayList();
 		
 		int page=1;
 		int limit=10;
@@ -32,13 +29,8 @@ public class QnaGcodeListAction implements ActionInterFace {
 		System.out.println("gCode : " + gCode);
 		
 		//int listcount=qnadao.getListCount(); //총 리스트 수를 받아옴
-		qnalist = qnadao.gcodeQnaList(page,limit, gCode); //리스트를 받아옴
-		int listcount = qnalist.size();
-		
-		GoodsDao goodsDao = new GoodsDao();
-		GoodsDto goodsDto = new GoodsDto();
-		goodsDto = goodsDao.goodsSelectByGcode(gCode);
-		request.setAttribute("g_id", goodsDto.getG_id());
+		reblist = rebDao.gcodeREBList(page,limit, gCode); //리스트를 받아옴
+		int listcount = reblist.size();
 		
 		//총 페이지 수
 		int maxpage=(int)((double)listcount/limit+0.95); //0.95를 더해서 올림 처리
@@ -54,7 +46,7 @@ public class QnaGcodeListAction implements ActionInterFace {
 		request.setAttribute("startpage", startpage); //현재 페이지에 표시할 첫 페이지 수
 		request.setAttribute("endpage", endpage); //현재 페이지에 표시할 끝 페이지 수
 		request.setAttribute("listcount",listcount); //글 수
-		request.setAttribute("qnalist", qnalist);
+		request.setAttribute("reblist", reblist);
 		request.setAttribute("gCode", gCode);
 		
 		System.out.println(page + " : page");
@@ -62,7 +54,7 @@ public class QnaGcodeListAction implements ActionInterFace {
 		
 		ActionForward forward= new ActionForward();
 	 	forward.setRedirect(false);
-		forward.setPath("/qnaBoard/qna_list.jsp");
+		forward.setPath("/reBoard/reBoardList.jsp");
 		return forward;
 	}
 

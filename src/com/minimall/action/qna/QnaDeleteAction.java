@@ -22,9 +22,12 @@ public class QnaDeleteAction implements ActionInterFace {
 			   	int num=Integer.parseInt(request.getParameter("num"));
 			   	String id = request.getParameter("id");
 			    String pw = request.getParameter("qna_pass");
+			    String gCode = request.getParameter("gCode");
+			    
 			    System.out.println(num + "<- num");
 			    System.out.println(id + "<- id");
 			    System.out.println(pw + "<- pw");
+			    System.out.println(gCode + "<- gCode");
 			   	//HttpSession session = request.getSession();
 			   	
 			   	//QnaDao qnadao=new QnaDao();
@@ -62,7 +65,7 @@ public class QnaDeleteAction implements ActionInterFace {
 			   	
 			   	System.out.println("게시판 삭제 성공");
 			   	forward.setRedirect(true);
-		   		forward.setPath(request.getContextPath() + "/Qna/QnaList.qn");
+		   		forward.setPath(request.getContextPath() + "/Gdetail/goodsDetailAction.go?gCode="+gCode);
 		   		
 			   	}
 			   	

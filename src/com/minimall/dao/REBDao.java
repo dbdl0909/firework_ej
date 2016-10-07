@@ -21,7 +21,7 @@ public class REBDao {
 	PreparedStatement pstmtSelect;
 	PreparedStatement pstmt;
 	ResultSet rs;
-	REBDto rebDto;
+	REBDto rebDto =null;
 	
 	public REBDao() {
 		try{
@@ -36,6 +36,61 @@ public class REBDao {
 		}
 		
 	}
+	//상품코드별 리스트
+		public List gcodeREBList(int page,int limit, String gCode){ 
+			//String gcode_qna_list_sql="select qna_no,qna_subject,m_id,qna_content,qna_secret,qna_category,qna_date,qna_readcount,g_code,qna_ref from qna_board where g_code=?";
+			
+			String gcode_qna_list_sql = "SELECT q.reb_ref as reb_ref, q.reb_no as reb_no, q.reb_subject as reb_subject, q.m_id as m_id, q.reb_content as reb_content, q.reb_secret as reb_secret,"+
+					" q.reb_category as reb_category, q.reb_date as reb_date, q.reb_readcount as reb_readcount, q.g_code as g_code"+
+					" FROM (SELECT reb_ref, reb_no,reb_subject,m_id, reb_content,reb_secret,reb_category,reb_date, reb_readcount, g_code"+
+					" FROM (SELECT * FROM reb_board ORDER BY reb_ref DESC) as qq) as q WHERE g_code=? LIMIT ?,?";
+			
+			List list = new ArrayList();
+			System.out.println(gcode_qna_list_sql + "<-- gcode_qna_list_sql gcodeQnaList QnaDAO.java");
+			System.out.println(page + "<-- page gcodeQnaList QnaDAO.java");
+			System.out.println(limit + "<-- limit gcodeQnaList QnaDAO.java");
+			System.out.println();
+			
+			int startrow=(page-1)*10+1; //읽기 시작할 row 번호.
+			int endrow=startrow+limit-1; //읽을 마지막 row 번호.	
+			
+			System.out.println(startrow + "<-- startrow gcodeQnaList QnaDAO.java");
+			System.out.println(endrow + "<-- endrow gcodeQnaList QnaDAO.java");
+			
+			try{
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(gcode_qna_list_sql);
+				pstmt.setString(1, gCode);
+				pstmt.setInt(2, startrow-1);
+				pstmt.setInt(3, endrow);
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()){
+					REBDto rebDto = new REBDto();
+					rebDto.setReb_ref(rs.getInt("reb_ref"));
+					rebDto.setReb_no(rs.getInt("reb_no"));
+					//System.out.println(qnadto.getQna_no());
+					rebDto.setReb_subject(rs.getString("reb_subject"));
+					rebDto.setM_id(rs.getString("m_id"));
+					rebDto.setReb_content(rs.getString("reb_content"));
+					rebDto.setReb_secret(rs.getString("reb_secret"));
+					rebDto.setReb_category(rs.getString("reb_category"));
+					rebDto.setReb_date(rs.getDate("reb_date"));
+					rebDto.setReb_readcount(rs.getInt("reb_readcount"));
+					rebDto.setG_code(rs.getString("g_code"));
+					//System.out.println(qnadto.getG_code());
+					list.add(rebDto);
+				}
+			}catch(Exception ex){
+				System.out.println("gcodeQnaList 에러 : " + ex);
+			}finally{
+				if(rs!=null) try{rs.close();}catch(SQLException ex){}
+				if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){}
+				if(con!=null) try{con.close();}catch(SQLException ex){}
+			}
+			return list;		
+		}
+	
 	//글 수정
 		public boolean boardModify(REBDto pna) throws Exception{
 			
@@ -129,7 +184,7 @@ public class REBDao {
 					pstmt.setString(6, qna.getReb_category());
 					pstmt.setInt(7, qna.getReb_ref());
 					pstmt.executeUpdate();
-					System.out.println(qna.getM_id());
+					//System.out.println(qna.getM_id());
 					
 					return num;
 				}catch(SQLException ex){
@@ -175,7 +230,7 @@ public class REBDao {
 					rs = pstmt.executeQuery();
 					
 					while(rs.next()){
-						rebDto = new REBDto();
+						REBDto rebDto = new REBDto();
 						rebDto.setReb_no(rs.getInt("reb_no"));
 						rebDto.setReb_subject(rs.getString("reb_subject"));
 						rebDto.setM_id(rs.getString("m_id"));
@@ -203,7 +258,7 @@ public class REBDao {
 				
 				try{
 					con = ds.getConnection();
-					pstmt = con.prepareStatement("select * from reb_board where reb_no = ?");
+					pstmt = con.prepareStatement("select reb_no,reb_subject,m_id,reb_content,reb_secret,reb_category,reb_date,reb_readcount,g_code,reb_ref from reb_board where reb_no = ?");
 					pstmt.setInt(1, num);
 					
 					rs= pstmt.executeQuery();
@@ -220,6 +275,8 @@ public class REBDao {
 						rebDto.setReb_category(rs.getString("reb_category"));
 						rebDto.setReb_date(rs.getDate("reb_date"));
 						rebDto.setReb_readcount(rs.getInt("reb_readcount"));
+						rebDto.setReb_ref(rs.getInt("reb_ref"));
+
 					}
 					
 				}catch(Exception ex){
@@ -311,7 +368,7 @@ public class REBDao {
 				pstmt.setString(5, qna.getReb_secret());
 				pstmt.setString(6, qna.getReb_category());
 				pstmt.setString(7, qna.getG_code());
-				pstmt.setInt(8, qna.getReb_ref());
+				pstmt.setInt(8, num+1);
 				
 				result=pstmt.executeUpdate();
 				
@@ -332,7 +389,7 @@ public class REBDao {
 		//글쓴이인지 확인
 		public boolean isBoardWriter(int num,String pass){
 				
-				String reb_sql="select * from reb_board where reb_no=?";
+				String reb_sql="select reb_no,reb_subject,m_id,reb_content,reb_secret,reb_category,reb_date,reb_readcount,g_code,reb_ref from reb_board where reb_no=?";
 				
 				try{
 					con = ds.getConnection();
@@ -358,26 +415,3 @@ public class REBDao {
 				return false;
 			}
 }
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

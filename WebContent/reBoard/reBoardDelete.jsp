@@ -3,8 +3,17 @@
 <html>
 <head>
 <title>상품평등록</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>미니몰</title>
+	<link href="${pageContext.request.contextPath}/css/reset.css"  rel="stylesheet" >
+	<link href="${pageContext.request.contextPath}/css/style.css"  rel="stylesheet" >
+
 </head>
 <body>
+<jsp:include page="/module/headerSub.jsp" />
+<div id="container">
+	<div class="content">
+
 <form name="deleteForm" action="${pageContext.request.contextPath}/Reb/rebDeleteAction.reb" method="post">
 <table border=1>
 <tr>
@@ -26,5 +35,8 @@
 </tr>
 </table>
 </form>
+	</div>
+</div>
+<jsp:include page = "/module/footer.jsp" />
 </body>
 </html>

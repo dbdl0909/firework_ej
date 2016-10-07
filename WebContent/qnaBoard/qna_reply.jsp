@@ -17,6 +17,7 @@
 <input type="hidden" name="qna_category" value="${qnadto.qna_category}">
 <input type="hidden" name="qna_secret" value="${qnadto.qna_secret}">
 <input type="hidden" name="m_id" value="${sessionScope.loginId}">
+<input type="hidden" name="g_code" value="${qnadto.g_code}">
 <table cellpadding="0" cellspacing="0">
 	<tr align="center" valign="middle">
 		<td colspan="5">Q&A 답변하기</td>

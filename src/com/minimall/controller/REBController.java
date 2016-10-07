@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.minimall.action.qna.QnaGcodeListAction;
 import com.minimall.action.reb.REBAddAction;
 import com.minimall.action.reb.REBDeleteAction;
 import com.minimall.action.reb.REBDeleteFormAction;
@@ -49,7 +50,7 @@ import com.minimall.inter.ActionInterFace;
 		    	System.out.println("04_01 조건문 내 /Reb/QnaAddWrite.qn QController.java");
 		    	forward = new ActionForward();		//주소값이 담겨있음
 		    	forward.setRedirect(false);
-		    	forward.setPath("/reBoard/reBoardWrite.jsp");
+		    	forward.setPath("/reBoard/reBoardWrite.jsp?gCode="+request.getParameter("gCode"));
 		    	forward.toString();
 			} else if(command.equals("/Reb/rebAddAction.reb")){		//글작성액션
 		    	System.out.println("04_02 조건문 내 /Reb/QnaAddAction.qn QController.java");
@@ -118,6 +119,14 @@ import com.minimall.inter.ActionInterFace;
 				try{
 					forward=action.execute(request, response);
 				}catch(Exception e){
+					e.printStackTrace();
+				}
+			}else if(command.equals("/Reb/rebGcodeList.reb")) {	//상품별 리스트
+				System.out.println("04_10 조건문 내 /Qna/QnaGcodeList.qn QController.java");
+		    	action = new QnaGcodeListAction();
+		    	try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}

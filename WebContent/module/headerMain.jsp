@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <script>
 	$(document).ready(function(){
-		
+
 		$('.loginBtn').click(function(){
 			
 			$('#loginWrap').show();
@@ -32,6 +32,22 @@
 			}
 			
 		});
+		
+		$(document).on("keypress", function(e){
+		
+			if(!($('#loginWrap').is(':hidden'))){
+				if(e.which == 13){					
+					if($('#mId').val()==''){						
+						alert('아이디를 입력해주세요');						
+					}else if($('#mPw').val()==''){						
+						alert('비밀번호를 입력해주세요');						
+					}else{						
+						$('#loginForm').submit();						
+					}					
+				}
+			}			
+		});
+
 		
 		$('#closeLoginWrap').click(function(){
 			
