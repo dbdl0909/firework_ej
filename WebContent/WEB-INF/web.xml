@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:web="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+    
+  <display-name>ShoppingMall</display-name>
+  <servlet>
+    <servlet-name>MController</servlet-name> 
+    <servlet-class>
+		com.minimall.controller.MController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MController</servlet-name>
+    <url-pattern>*.mo</url-pattern>
+  </servlet-mapping>
+  	
+  <servlet>
+    <servlet-name>GController</servlet-name>
+    <servlet-class>
+		com.minimall.controller.GController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GController</servlet-name>
+    <url-pattern>*.go</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>OController</servlet-name>
+    <servlet-class>
+		com.minimall.controller.OController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>OController</servlet-name>
+    <url-pattern>*.oo</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>QController</servlet-name>
+    <servlet-class>
+		com.minimall.controller.QController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>QController</servlet-name>
+    <url-pattern>*.qn</url-pattern>
+  </servlet-mapping>  
+  
+  <servlet>
+    <servlet-name>REBController</servlet-name>
+    <servlet-class>
+		com.minimall.controller.REBController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>REBController</servlet-name>
+    <url-pattern>*.reb</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>

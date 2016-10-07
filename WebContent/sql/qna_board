@@ -1,0 +1,31 @@
+-- --------------------------------------------------------
+-- 호스트:                          127.0.0.1
+-- 서버 버전:                        5.5.32 - MySQL Community Server (GPL)
+-- 서버 OS:                        Win32
+-- HeidiSQL 버전:                  9.3.0.4984
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+-- 테이블 firework.qna_board 구조 내보내기
+CREATE TABLE IF NOT EXISTS `qna_board` (
+  `qna_no` int(11) NOT NULL AUTO_INCREMENT,
+  `qna_subject` varchar(50) NOT NULL,
+  `m_id` varchar(20) NOT NULL,
+  `qna_content` varchar(1000) NOT NULL,
+  `qna_secret` varchar(20) NOT NULL,
+  `qna_category` varchar(20) NOT NULL,
+  `qna_date` date NOT NULL,
+  `qna_readcount` int(11) NOT NULL,
+  PRIMARY KEY (`qna_no`),
+  KEY `FK__member` (`m_id`),
+  CONSTRAINT `FK__member` FOREIGN KEY (`M_ID`) REFERENCES `member` (`m_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
