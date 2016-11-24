@@ -58,7 +58,7 @@ public class GoodsDForUpdateAction implements ActionInterFace {
 		request.setAttribute("b64", b64Array);*/
 		
 		//String path = request.getServletContext().getRealPath("goodsImage");
-		String path = "/home/hosting_users/cynical1031/tomcat/webapps/ROOT/upload/goodsImage";
+		String path = "/home/hosting_users/dbdl10040909/tomcat/webapps/ROOT/upload/goodsImage";
 		request.setAttribute("path", path);
 		
 		request.setAttribute("goodsDto", goodsDto);		

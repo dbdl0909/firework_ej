@@ -23,7 +23,7 @@ public class GoodsDeleteAction implements ActionInterFace {
 		System.out.println(gCode + " : gCode GoodsInsertPro.java");
 		
 		//String path = request.getServletContext().getRealPath("goodsImage");
-		String path = "/home/hosting_users/cynical1031/tomcat/webapps/ROOT/upload/goodsImage";
+		String path = "/home/hosting_users/dbdl10040909/tomcat/webapps/ROOT/upload/goodsImage";
 		
 		GoodsDao goodsDao = new GoodsDao();
 		GoodsDto goodsDto = goodsDao.goodsSelectForDeleteByGCode(gCode);

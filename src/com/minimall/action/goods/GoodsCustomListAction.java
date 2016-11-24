@@ -58,7 +58,7 @@ public class GoodsCustomListAction implements ActionInterFace {
 		
 		if(goodsListAllCount != 0) {
 			//String path = request.getServletContext().getRealPath("goodsImage");
-			String path = "/home/hosting_users/cynical1031/tomcat/webapps/ROOT/upload/goodsImage";
+			String path = "/home/hosting_users/dbdl10040909/tomcat/webapps/ROOT/upload/goodsImage";
 			
 			System.out.println("가져온 데이터 갯수 : " + goodsListCount + " : GoodsCustomListAction.java");
 			for(int i=0; i<goodsListCount; i++) {

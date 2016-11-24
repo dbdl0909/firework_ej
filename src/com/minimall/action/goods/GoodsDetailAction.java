@@ -30,7 +30,7 @@ public class GoodsDetailAction implements ActionInterFace {
 		String b64 = "";
 		//¿ÃπÃ¡ˆ
 		//String path = request.getServletContext().getRealPath("goodsImage");
-		String path = "/home/hosting_users/cynical1031/tomcat/webapps/ROOT/upload/goodsImage";
+		String path = "/home/hosting_users/dbdl10040909/tomcat/webapps/ROOT/upload/goodsImage";
 		ArrayList<String> gImageType = new ArrayList<String>();
 		//File file = new File(path + "\\" + imageName);
 		File file = new File(path + "/" + goodsDto.getG_image());
